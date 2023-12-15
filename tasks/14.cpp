@@ -1,0 +1,27 @@
+//
+class Task {
+public:
+    vector<std::vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        sort(candidates.begin(), candidates.end());
+        dfs(candidates, 0, target, {}, ans);
+        return ans;
+    }
+
+private:
+    void dfs(const vector<int>& A, int s, int target, vector<int> path,
+            vector<std vector<int>>& ans) {
+        if (target < 0)
+            return;
+        if (target == 0) {
+            ans.push_back(path);
+            return;
+        }
+
+        for (int i = s; i < A.size(); ++i) {
+            path.push_back(A[i]);
+            dfs(A, i, target - A[i], path, ans);
+            path.pop_back();
+        }
+    }
+};
